@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 public class CodeGenerator {
 
     private EntityClassGenerator entityClassGenerator;
-    private EntityClassGeneratorRole entityClassGeneratorRole;
     private RestControllerGenerator restControllerGenerator;
     private ServiceInterfaceGenerator serviceInterfaceGenerator;
     private ServiceImplClassGenerator serviceImplClassGenerator;
@@ -23,7 +22,6 @@ public class CodeGenerator {
         this.serviceInterfaceGenerator = serviceInterfaceGenerator;
         this.serviceImplClassGenerator = serviceImplClassGenerator;
         this.repositoryInterfaceGenerator = repositoryInterfaceGenerator;
-        this.entityClassGeneratorRole=entityClassGeneratorRole;
     }
 
     public void generateCRUDCode(String entityName){
@@ -32,6 +30,5 @@ public class CodeGenerator {
         serviceInterfaceGenerator.generateServiceInterface(entityName);
         serviceImplClassGenerator.generateServiceImplClass(entityName);
         repositoryInterfaceGenerator.generateRepository(entityName);
-        entityClassGeneratorRole.generateEntityClassRole("user-role");
     }
 }

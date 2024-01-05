@@ -32,6 +32,8 @@ public class EntityClassGenerator {
 
         Set<String> propertyNames = prop.stringPropertyNames();
         String content = "package " + applicationConfig.getPackageName() + ".models;\n\n" +
+                "import jakarta.persistence.*;\n\n"+
+                "@Entity\n"+
                 "public class " + entityName + "{\n\n";
         for(String propertyName : propertyNames){
             String propertyValue = prop.getProperty(propertyName);

@@ -28,104 +28,104 @@ public class ServiceImplClassGenerator {
                         "import org.slf4j.Logger;\n" +
                         "import org.slf4j.LoggerFactory;\n" +
                         "import org.springframework.stereotype.Service;\n\n" +
-                        "import %s.dtos.UserResponseDto;\n" +
-                        "import %s.dtos.UserRequestDto;\n" +
+                        "import %s.dtos.TimelineResponseDto;\n" +
+                        "import %s.dtos.TimelineRequestDto;\n" +
                         "import %s.exceptions.NotFoundException;\n" +
                         "import %s.models.Address;\n" +
-                        "import %s.models.User;\n" +
-                        "import %s.models.UserContact;\n" +
-                        "import %s.models.UserData;\n" +
-                        "import %s.repos.UserRepository;\n" +
+                        "import %s.models.Timeline;\n" +
+                        "import %s.models.TimelineContact;\n" +
+                        "import %s.models.TimelineData;\n" +
+                        "import %s.repos.TimelineRepository;\n" +
                         "import %s.service.%s;\n\n" +
                         "@Service\n" +
                         "public class %s implements %s {\n\n" +
-                        "   private UserRepository UserRepository;\n" +
+                        "   private TimelineRepository TimelineRepository;\n" +
                         "   private ModelMapper modelMapper;\n" +
                         "    private static final Logger LOGGER = LoggerFactory.getLogger(%s.class);\n\n" +
-                        "    public %s(UserRepository UserRepository, ModelMapper modelMapper) {\n" +
-                        "        this.UserRepository = UserRepository;\n" +
+                        "    public %s(TimelineRepository TimelineRepository, ModelMapper modelMapper) {\n" +
+                        "        this.TimelineRepository = TimelineRepository;\n" +
                         "        this.modelMapper = modelMapper;\n" +
                         "    }\n\n" +
                         "    @Override\n" +
-                        "    public UserResponseDto getUser(Long UserId) throws NotFoundException {\n" +
+                        "    public TimelineResponseDto getTimeline(Long TimelineId) throws NotFoundException {\n" +
                         "        try {\n" +
-                        "            Optional<User> optionalUser = UserRepository.findById(UserId);\n" +
-                        "            if (optionalUser.isEmpty()) {\n" +
-                        "                throw new NotFoundException(\"User Doesn't exist.\");\n" +
+                        "            Optional<Timeline> optionalTimeline = TimelineRepository.findById(TimelineId);\n" +
+                        "            if (optionalTimeline.isEmpty()) {\n" +
+                        "                throw new NotFoundException(\"Timeline Doesn't exist.\");\n" +
                         "            }\n\n" +
-                        "            return modelMapper.map(optionalUser.get(), UserResponseDto.class);\n" +
+                        "            return modelMapper.map(optionalTimeline.get(), TimelineResponseDto.class);\n" +
                         "        } catch (Exception ex) {\n" +
-                        "            LOGGER.error(\"Error occurred while processing getUser\", ex);\n" +
-                        "            throw new RuntimeException(\"Error occurred while processing getUser\", ex);\n" +
+                        "            LOGGER.error(\"Error occurred while processing getTimeline\", ex);\n" +
+                        "            throw new RuntimeException(\"Error occurred while processing getTimeline\", ex);\n" +
                         "        }\n" +
                         "    }\n\n" +
                         "    @Override\n" +
-                        "    public List<UserResponseDto> getUsers() {\n" +
+                        "    public List<TimelineResponseDto> getTimelines() {\n" +
                         "        try {\n" +
-                        "            List<User> Users = UserRepository.findAll();\n" +
-                        "            List<UserResponseDto> UserResponseDtos = null;\n" +
-                        "            if (!Users.isEmpty()) {\n" +
-                        "                UserResponseDtos = new ArrayList<>();\n" +
-                        "                for (User User : Users) {\n" +
-                        "                    UserResponseDtos.add(modelMapper.map(User, UserResponseDto.class));\n" +
+                        "            List<Timeline> Timelines = TimelineRepository.findAll();\n" +
+                        "            List<TimelineResponseDto> TimelineResponseDtos = null;\n" +
+                        "            if (!Timelines.isEmpty()) {\n" +
+                        "                TimelineResponseDtos = new ArrayList<>();\n" +
+                        "                for (Timeline Timeline : Timelines) {\n" +
+                        "                    TimelineResponseDtos.add(modelMapper.map(Timeline, TimelineResponseDto.class));\n" +
                         "                }\n" +
                         "            }\n" +
-                        "            return UserResponseDtos;\n" +
+                        "            return TimelineResponseDtos;\n" +
                         "        } catch (Exception ex) {\n" +
-                        "            LOGGER.error(\"Error occurred while processing getUsers\", ex);\n" +
-                        "            throw new RuntimeException(\"Error occurred while processing getUsers\", ex);\n" +
+                        "            LOGGER.error(\"Error occurred while processing getTimelines\", ex);\n" +
+                        "            throw new RuntimeException(\"Error occurred while processing getTimelines\", ex);\n" +
                         "        }\n" +
                         "    }\n\n" +
                         "    @Override\n" +
-                        "    public String deleteUser(Long UserId) {\n" +
-                        "        if (UserRepository.findById(UserId).isPresent()) {\n" +
-                        "            UserRepository.deleteById(UserId);\n" +
-                        "            return \"User Deleted Successfully!!\";\n" +
+                        "    public String deleteTimeline(Long TimelineId) {\n" +
+                        "        if (TimelineRepository.findById(TimelineId).isPresent()) {\n" +
+                        "            TimelineRepository.deleteById(TimelineId);\n" +
+                        "            return \"Timeline Deleted Successfully!!\";\n" +
                         "        }\n" +
-                        "        return \"No User exists in the database with the provided id.\";\n" +
+                        "        return \"No Timeline exists in the database with the provided id.\";\n" +
                         "    }\n\n" +
                         "    @Override\n" +
-                        "    public UserResponseDto updateUser(Long UserId, UserRequestDto UserRequestDto) {\n" +
+                        "    public TimelineResponseDto updateTimeline(Long TimelineId, TimelineRequestDto TimelineRequestDto) {\n" +
                         "        try {\n" +
-                        "            Optional<User> optionalUser = UserRepository.findById(UserId);\n" +
-                        "            if (optionalUser.isPresent()) {\n" +
-                        "                User User = optionalUser.get();\n" +
-                        "                // Update User fields based on UserRequestDto\n\n" +
-                        "                if (UserRequestDto.getUserContact() != null) {\n" +
-                        "                    UserContact UserContact = modelMapper.map(UserRequestDto.getUserContact(), UserContact.class);\n" +
-                        "                    User.setUserContact(UserContact);\n" +
+                        "            Optional<Timeline> optionalTimeline = TimelineRepository.findById(TimelineId);\n" +
+                        "            if (optionalTimeline.isPresent()) {\n" +
+                        "                Timeline Timeline = optionalTimeline.get();\n" +
+                        "                // Update Timeline fields based on TimelineRequestDto\n\n" +
+                        "                if (TimelineRequestDto.getTimelineContact() != null) {\n" +
+                        "                    TimelineContact TimelineContact = modelMapper.map(TimelineRequestDto.getTimelineContact(), TimelineContact.class);\n" +
+                        "                    Timeline.setTimelineContact(TimelineContact);\n" +
                         "                }\n\n" +
                         "                // update address\n" +
-                        "                if (UserRequestDto.getAddress() != null) {\n" +
-                        "                    List<Address> addressList = List.of(modelMapper.map(UserRequestDto.getAddress(), Address[].class));\n" +
-                        "                    User.setAddress(addressList);\n" +
+                        "                if (TimelineRequestDto.getAddress() != null) {\n" +
+                        "                    List<Address> addressList = List.of(modelMapper.map(TimelineRequestDto.getAddress(), Address[].class));\n" +
+                        "                    Timeline.setAddress(addressList);\n" +
                         "                }\n\n" +
-                        "                // update User data\n" +
-                        "                if (UserRequestDto.getUserData() != null) {\n" +
-                        "                    List<UserData> UserDataList = List.of(modelMapper.map(UserRequestDto.getUserData(), UserData[].class));\n" +
-                        "                    User.setUserData(UserDataList);\n" +
+                        "                // update Timeline data\n" +
+                        "                if (TimelineRequestDto.getTimelineData() != null) {\n" +
+                        "                    List<TimelineData> TimelineDataList = List.of(modelMapper.map(TimelineRequestDto.getTimelineData(), TimelineData[].class));\n" +
+                        "                    Timeline.setTimelineData(TimelineDataList);\n" +
                         "                }\n\n" +
                         "                // Update other fields\n" +
                         "                // ...\n\n" +
-                        "                User.setLast_updated_by(\"admin\");\n" +
-                        "                User.setLast_updated_on(System.currentTimeMillis());\n\n" +
-                        "                return modelMapper.map(UserRepository.save(User), UserResponseDto.class);\n" +
+                        "                Timeline.setLast_updated_by(\"admin\");\n" +
+                        "                Timeline.setLast_updated_on(System.currentTimeMillis());\n\n" +
+                        "                return modelMapper.map(TimelineRepository.save(Timeline), TimelineResponseDto.class);\n" +
                         "            } else {\n" +
                         "                return null;\n" +
                         "            }\n" +
                         "        } catch (Exception ex) {\n" +
-                        "            LOGGER.error(\"Error occurred while processing updateUsers\", ex);\n" +
-                        "            throw new RuntimeException(\"Error occurred while processing updateUsers\", ex);\n" +
+                        "            LOGGER.error(\"Error occurred while processing updateTimelines\", ex);\n" +
+                        "            throw new RuntimeException(\"Error occurred while processing updateTimelines\", ex);\n" +
                         "        }\n" +
                         "    }\n\n" +
                         "    @Override\n" +
-                        "    public Long addUser(User User) {\n" +
+                        "    public Long addTimeline(Timeline Timeline) {\n" +
                         "        try {\n" +
-                        "            User newUser = UserRepository.save(User);\n" +
-                        "            return newUser.getId();\n" +
+                        "            Timeline newTimeline = TimelineRepository.save(Timeline);\n" +
+                        "            return newTimeline.getId();\n" +
                         "        } catch (Exception ex) {\n" +
-                        "            LOGGER.error(\"Error occurred while processing addUsers\", ex);\n" +
-                        "            throw new RuntimeException(\"Error occurred while processing addUsers\", ex);\n" +
+                        "            LOGGER.error(\"Error occurred while processing addTimelines\", ex);\n" +
+                        "            throw new RuntimeException(\"Error occurred while processing addTimelines\", ex);\n" +
                         "        }\n" +
                         "    }\n" +
                         "}\n",
